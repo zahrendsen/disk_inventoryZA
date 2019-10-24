@@ -4,6 +4,8 @@
 /*  10/3/19		Zach Ahrendsen		created database, readonly user,      */ 
 /*  10/11/19	Zach Ahrendsen		inserted and modfied table data       */ 
 /*  10/17/19	Zach Ahrendsen		added joins and views for data		  */ 
+/*  10/24/19	Zach Ahrendsen		added stored procdurues for updating, */ 
+/* 									inserting, and deleting				  */ 
 /*                                                                        */ 
 /**************************************************************************/
 
@@ -279,3 +281,274 @@ join borrower_trans on disk.disk_id = borrower_trans.disk_id
 join borrower on borrower.borrower_id = borrower_trans.borrower_id
 where returned_date is null
 order by disk_name;
+
+go
+
+--created stored procedure to insert new artist
+drop proc if exists sp_InsArtist;
+go
+
+create proc sp_InsArtist
+	@fname nvarchar (100),
+	@artist_type_id int,
+	@lname nvarchar (100) = null
+
+as
+Begin try
+INSERT INTO [dbo].[artist]
+           ([fname]
+           ,[lname]
+           ,[artist_type_id])
+     VALUES
+           (@fname, @lname, @artist_type_id)
+end try
+	begin catch
+		print 'An error occurred. Row was not inserted';
+		print 'error number: '+
+		convert(varchar(200), error_number());
+		print 'error message: '+
+		convert(varchar(200), error_message());
+	end catch
+GO
+
+exec sp_InsArtist 'Prince', 1
+--exec sp_InsArtist Null, 1
+go
+
+
+--created stored procedure to update artist row
+drop proc if exists sp_UpdArtist;
+go
+
+create proc sp_UpdArtist
+	@artist_id int,
+	@fname nvarchar (100),
+	@artist_type_id int,
+	@lname nvarchar (100) = null
+
+as
+begin try
+UPDATE [dbo].[artist]
+   SET [fname] = @fname,
+       [lname] = @lname,
+       [artist_type_id] = @artist_type_id
+WHERE artist_id = @artist_id
+end try 
+begin catch
+	print 'An error occurred. Row was not updated';
+	print 'error number: '+
+	convert(varchar(200), error_number());
+	print 'error message: '+
+	convert(varchar(200), error_message());
+end catch
+go
+
+exec sp_UpdArtist 22, 'Bruno', 1, 'Mars';
+--exec sp_UpdArtist 22, Null, 1, 'Mars';
+go
+
+--created stored procedure to delete artist row
+drop proc if exists sp_DelArtist;
+go
+
+create proc sp_DelArtist
+	@artist_id int
+
+as
+begin try
+	DELETE FROM [dbo].[artist]
+		  WHERE artist_id = @artist_id
+end try 
+begin catch
+	print 'An error occurred. Row was not updated';
+	print 'error number: '+
+	convert(varchar(200), error_number());
+	print 'error message: '+
+	convert(varchar(200), error_message());
+end catch
+go
+
+exec sp_DelArtist 22;
+go
+
+--created stored procedure to insert new borrower
+drop proc if exists sp_InsBorrower;
+go
+
+create proc sp_InsBorrower
+	@fname nvarchar (100),
+	@lname nvarchar (100),
+	@phonenumber nvarchar (100) 
+
+as
+Begin try
+INSERT INTO [dbo].[borrower]
+           ([fname]
+           ,[lname]
+           ,[phonenumber])
+     VALUES
+           (@fname, @lname, @phonenumber)
+end try
+	begin catch
+		print 'An error occurred. Row was not inserted';
+		print 'error number: '+
+		convert(varchar(200), error_number());
+		print 'error message: '+
+		convert(varchar(200), error_message());
+	end catch
+GO
+
+exec sp_InsBorrower 'Zach', 'Ahrendsen', '208-555-5555'
+--exec sp_InsBorrower Null, 1, 1
+go
+
+--created stored procedure to update borrower row
+drop proc if exists sp_UpdBorrower;
+go
+
+create proc sp_UpdBorrower
+	@borrower_id int,
+	@fname nvarchar (100),
+	@lname nvarchar (100)
+
+as
+begin try
+UPDATE [dbo].[borrower]
+   SET [fname] = @fname,
+       [lname] = @lname
+WHERE borrower_id = @borrower_id
+end try 
+begin catch
+	print 'An error occurred. Row was not updated';
+	print 'error number: '+
+	convert(varchar(200), error_number());
+	print 'error message: '+
+	convert(varchar(200), error_message());
+end catch
+go
+
+exec sp_UpdBorrower 21, 'Sam', 'Winchester';
+--exec sp_UpdBorrower 21, Null, 'Mars';
+go
+
+
+--created stored procedure to delete borrower row
+drop proc if exists sp_DelBorrower;
+go
+
+create proc sp_DelBorrower
+	@borrower_id int
+
+as
+begin try
+	DELETE FROM [dbo].[borrower]
+		  WHERE borrower_id = @borrower_id
+end try 
+begin catch
+	print 'An error occurred. Row was not updated';
+	print 'error number: '+
+	convert(varchar(200), error_number());
+	print 'error message: '+
+	convert(varchar(200), error_message());
+end catch
+go
+
+exec sp_DelBorrower 21;
+go
+
+--created stored procedure to insert new disk
+drop proc if exists sp_InsDisk;
+go
+
+create proc sp_InsDisk
+	@disk_name nvarchar (100),
+	@release_date date,
+	@status_id int,
+	@disk_type_id int,
+	@genre_id int
+
+as
+Begin try
+INSERT INTO [dbo].[disk]
+           ([disk_name]
+           ,[release_date]
+           ,[status_id]
+	   ,[disk_type_id]
+           ,[genre_id])
+     VALUES
+           (@disk_name, @release_date, @status_id, @disk_type_id, @genre_id)
+end try
+	begin catch
+		print 'An error occurred. Row was not inserted';
+		print 'error number: '+
+		convert(varchar(200), error_number());
+		print 'error message: '+
+		convert(varchar(200), error_message());
+	end catch
+GO
+
+exec sp_InsDisk 'Jaws', '20 June 1975', 2, 2, 21
+--exec sp_InsDisk Null, '20 June 1975', 2, 2, 21
+
+--created stored procedure to update disk row
+drop proc if exists sp_UpdDisk;
+go
+
+create proc sp_UpdDisk
+	@disk_id int,
+	@release_date date,
+	@status_id int,
+	@disk_type_id int,
+	@genre_id int
+as
+begin try
+UPDATE [dbo].[disk]
+   SET [release_date] = @release_date,
+       [status_id] = @status_id,
+       [disk_type_id] = @disk_type_id,
+       [genre_id] = @genre_id
+WHERE  disk_id = @disk_id
+end try 
+begin catch
+	print 'An error occurred. Row was not updated';
+	print 'error number: '+
+	convert(varchar(200), error_number());
+	print 'error message: '+
+	convert(varchar(200), error_message());
+end catch
+go
+
+exec sp_UpdDisk 20,  'November 7, 2013', 2, 2, 21
+exec sp_UpdDisk 20, Null, 2, 2, 21
+go
+
+
+
+--created stored procedure to delete disk row
+drop proc if exists sp_DelDisk;
+go
+
+create proc sp_DelDisk
+	@disk_id int
+
+as
+begin try
+	DELETE FROM [dbo].[disk]
+		  WHERE disk_id = @disk_id
+end try 
+begin catch
+	print 'An error occurred. Row was not updated';
+	print 'error number: '+
+	convert(varchar(200), error_number());
+	print 'error message: '+
+	convert(varchar(200), error_message());
+end catch
+go
+
+exec sp_DelDisk 20;
+go
+
+select * from disk
+
+
+
