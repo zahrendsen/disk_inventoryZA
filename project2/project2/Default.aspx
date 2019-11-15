@@ -4,6 +4,10 @@ Date				 Author				Comments
 ------------------- ------------------- ----------------------------------
 11/8/19				Zach Ahrendsen		Started a webapp to eventually connect
                                             to disk inventory db.
+11/15/19			Zach Ahrendsen		Connected db. Created listviews per
+                                            category of table needed.
+                                            sps to access functions
+                                            for delete, update, and insert
 **************************************************************************--%>
 
 
@@ -12,10 +16,11 @@ Date				 Author				Comments
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
     <div class="jumbotron">
-        <h1>Disk Rental</h1>
+        <h1>Disk Rental Application</h1>
         <p>
-            He to such to condemned things muse condole virtues deigned some known another was did found sight een in he in passed shrine befell none fathers agen holy vexed scape wandered dear he land since so the start who made of thy below change fellow loathed strange lowly long of to lyres charms say smile for childe seemed land not
-            He to such to condemned things muse condole virtues deigned some known another was did found sight een in he in passed shrine befell none fathers agen holy vexed scape wandered dear he land since so the start who made of thy below change fellow loathed strange lowly long of to lyres charms say smile for childe seemed land not
+           Z to A Creation Hub is creating a disk rental application to sell to your company. This application will be an employee side program.
+            At the moment you can create, modify, and delete borrower accounts, artist, and cd/dvd disc inventory. More features can be customized
+            if needed.
         </p>
     </div>
 

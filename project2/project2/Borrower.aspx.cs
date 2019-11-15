@@ -14,16 +14,7 @@ namespace project2
 
         }
 
-        protected void submit_Click(object sender, EventArgs e)
-        {
-            if (Page.IsValid)
-            {
-                lblSubmit.Text = "Success! We received your submisson.";
-                fname.Text = "";
-                lname.Text = "";
-                phone.Text = "";
-
-            }
-        }
+       
+        
     }
 }
