@@ -11,6 +11,7 @@ Date				 Author				Comments
                                                 
 **************************************************************************--%>
 
+
 <%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="project2.SiteMaster" %>
 
 <!DOCTYPE html>
@@ -65,10 +66,26 @@ Date				 Author				Comments
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><a runat="server" href="~/">Home</a></li>
-                        <li><a runat="server" href="~/Borrower">Borrower</a></li>
-                        <li><a runat="server" href="~/Artist">Artist</a></li>
-                        <li><a runat="server" href="~/Disk">Disk</a></li>
+                        <li><a runat="server" href="~/login/Borrower">Borrower</a></li>
+                        <li><a runat="server" href="~/login/Artist">Artist</a></li>
+                        <li><a runat="server" href="~/login/Disk">Disk</a></li>
                     </ul>
+                     <asp:LoginView runat="server" ViewStateMode="Disabled">
+                        <AnonymousTemplate>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a runat="server" href="~/Account/Register">Register</a></li>
+                                <li><a runat="server" href="~/Account/Login">Log in</a></li>
+                            </ul>
+                        </AnonymousTemplate>
+                        <LoggedInTemplate>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a runat="server" href="~/Account/Manage" title="Manage your account">Hello, <%: Context.User.Identity.GetUserName()  %> !</a></li>
+                                <li>
+                                    <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
+                                </li>
+                            </ul>
+                        </LoggedInTemplate>
+                    </asp:LoginView>
                 </div>
             </div>
            </div>
