@@ -26,20 +26,13 @@ Date				 Author				Comments
                                             404 error pages.
 **************************************************************************--%>
 
-
-<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="project2._Default" %>
+<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="404.aspx.cs" Inherits="project2.Error._404" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-
-    <div class="jumbotron">
-        <h1>Disk Rental Application</h1>
-        <p>
-           Z to A Creation Hub is creating a disk rental application to sell to your company. This application will be an employee side program.
-            At the moment you can create, modify, and delete borrower accounts, artist, and cd/dvd disc inventory. More features can be customized
-            if needed.
-        </p>
-    </div>
-
-
-
+    <h1>Page Not Found</h1>
+    <asp:BulletedList ID="BulletedList1" runat="server">
+        <asp:ListItem>Please double check the URL/Web address you have requested.</asp:ListItem>
+        <asp:ListItem>This page may no longer exist.</asp:ListItem>
+        <asp:ListItem>This page may have moved.</asp:ListItem>
+    </asp:BulletedList>
 </asp:Content>

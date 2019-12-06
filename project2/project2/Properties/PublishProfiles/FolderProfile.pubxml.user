@@ -136,10 +136,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/27/2012 12:00:52</publishTime>
     </File>
     <File Include="bin/project2.dll">
-      <publishTime>11/22/2019 18:40:16</publishTime>
+      <publishTime>12/05/2019 19:39:58</publishTime>
     </File>
     <File Include="bin/project2.pdb">
-      <publishTime>11/22/2019 18:40:16</publishTime>
+      <publishTime>12/05/2019 19:39:58</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>05/24/2018 13:38:22</publishTime>
@@ -319,7 +319,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/22/2019 09:49:25</publishTime>
     </File>
     <File Include="Default.aspx">
-      <publishTime>11/22/2019 09:54:53</publishTime>
+      <publishTime>12/05/2019 19:38:40</publishTime>
+    </File>
+    <File Include="Error/404.aspx">
+      <publishTime>12/05/2019 19:37:44</publishTime>
+    </File>
+    <File Include="Error/GenericErrorPage.aspx">
+      <publishTime>12/05/2019 19:37:51</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>11/22/2019 09:49:16</publishTime>
@@ -343,13 +349,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/22/2019 09:49:16</publishTime>
     </File>
     <File Include="login/Artist.aspx">
-      <publishTime>11/22/2019 18:36:11</publishTime>
+      <publishTime>12/05/2019 19:38:06</publishTime>
     </File>
     <File Include="login/Borrower.aspx">
-      <publishTime>11/22/2019 18:36:11</publishTime>
+      <publishTime>12/05/2019 19:38:13</publishTime>
     </File>
     <File Include="login/Disk.aspx">
-      <publishTime>11/22/2019 18:36:11</publishTime>
+      <publishTime>12/05/2019 19:38:22</publishTime>
+    </File>
+    <File Include="login/Inventory.aspx">
+      <publishTime>12/05/2019 19:37:18</publishTime>
     </File>
     <File Include="login/Web.config">
       <publishTime>11/22/2019 09:59:51</publishTime>
@@ -445,7 +454,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/22/2019 09:49:23</publishTime>
     </File>
     <File Include="Site.Master">
-      <publishTime>11/22/2019 09:57:56</publishTime>
+      <publishTime>12/05/2019 19:38:55</publishTime>
     </File>
     <File Include="Site.Mobile.Master">
       <publishTime>11/22/2019 09:49:24</publishTime>
@@ -454,7 +463,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/22/2019 09:49:24</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>11/22/2019 18:40:16</publishTime>
+      <publishTime>12/05/2019 19:39:59</publishTime>
     </File>
   </ItemGroup>
 </Project>

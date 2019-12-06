@@ -16,6 +16,14 @@ Date				 Author				Comments
                                             to visit any of the pages other than
                                             home the user must be logged in or
                                             they will be redirected to log in
+12/2/19             Zach Ahrendsen      Corrected insert and update on Disk Page
+                                            features work correctly.
+12/4/19             Zach Ahrendsen      Created inventory/store page to allow
+                                            transactions for borrowers to 
+                                            rent disks. 
+12/5/19             Zach Ahrendsen      Created validation for store page.
+                                            Also created custom error and custom
+                                            404 error pages.
 **************************************************************************--%>
 
 <%@ Page Title="Disk" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Disk.aspx.cs" Inherits="project2.Disk" %>
@@ -71,20 +79,19 @@ Date				 Author				Comments
                     </asp:RangeValidator>
                 </td>
                 <td>
-                     <asp:DropDownList ID="status_descDropDown" runat="server" DataTextField='<%# Bind("status_id") %>'>
-                         <asp:ListItem Value="1" >Borrowed</asp:ListItem>
-                        <asp:ListItem Value="2" Selected="True">In Stock</asp:ListItem>
+                     <asp:DropDownList ID="status_descDropDown" runat="server"  DataSourceID="SqlDataSource4" DataTextField="status_desc" 
+                          DataValueField="status_id" SelectedValue='<%# Bind("status_id") %>'>
                     </asp:DropDownList>
                 </td>
                 <td>
-                    <asp:DropDownList ID="Disk_typeDropDown" runat="server" DataTextField='<%# Bind("disk_type_id") %>'>
-                        <asp:ListItem Value="1" Selected="True">CD</asp:ListItem>
-                        <asp:ListItem Value="2">DVD</asp:ListItem>
+                    <asp:DropDownList ID="Disk_typeDropDown" runat="server"  DataSourceID="SqlDataSource3" DataTextField="disk_type_desc" 
+                        DataValueField="disk_type_id" SelectedValue='<%# Bind("disk_type_id") %>'>
                     </asp:DropDownList>
                 </td>
                 <td>
 
-                    <asp:DropDownList ID="genre_descDropDown" runat="server" DataSourceID="SqlDataSource2" DataTextField="genre_desc" DataValueField="genre_id" SelectedValue='<%# Bind("genre_id") %>'>
+                    <asp:DropDownList ID="genre_descDropDown" runat="server" DataSourceID="SqlDataSource2" DataTextField="genre_desc" 
+                        DataValueField="genre_id" SelectedValue='<%# Bind("genre_id") %>'>
                     </asp:DropDownList>
 
                 </td>
@@ -102,7 +109,7 @@ Date				 Author				Comments
             </table>
         </EmptyDataTemplate>
         <InsertItemTemplate>
-            <tr class="">
+            <tr>
                 <td>
                     <asp:Button ID="InsertButton" runat="server" CommandName="Insert" Text="Insert" ValidationGroup="Insert" />
                     <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Clear" CausesValidation="False" ValidationGroup="Insert" />
@@ -113,7 +120,7 @@ Date				 Author				Comments
                         ControlToValidate="disk_nameTextBox" Display="Dynamic" ValidationGroup="Insert"></asp:RequiredFieldValidator>
                 </td>
                 <td>
-                    <asp:TextBox ID="release_dateTextBox" runat="server" Text='<%# Bind("release_date", "{0:MM/dd/yyyy}") %>' ValidationGroup="Insert"/>
+                    <asp:TextBox ID="release_dateTextBox" runat="server" Text='<%# Bind("release_date") %>' ValidationGroup="Insert"/>
                     <asp:RequiredFieldValidator CssClass="text-warning" ID="RequiredFieldValidator7" runat="server" ErrorMessage="<br />Release date Required" 
                         ControlToValidate="release_dateTextBox" Display="Dynamic" ValidationGroup="Insert"></asp:RequiredFieldValidator>
                      <asp:RangeValidator CssClass="text-danger" ID="RangeValidator2" runat="server" ControlToValidate="release_dateTextBox"
@@ -122,20 +129,19 @@ Date				 Author				Comments
                 </td>
                 </td>
                 <td>
-                     <asp:DropDownList ID="status_descDropDown" runat="server" DataTextField='<%# Bind("status_id") %>'>
-                         <asp:ListItem Value="1" >Borrowed</asp:ListItem>
-                        <asp:ListItem Value="2" Selected="True">In Stock</asp:ListItem>
+                     <asp:DropDownList ID="status_descDropDown" runat="server"  DataSourceID="SqlDataSource4" DataTextField="status_desc" 
+                          DataValueField="status_id" SelectedValue='<%# Bind("status_id") %>'>
                     </asp:DropDownList>
                 </td>
                 <td>
-                    <asp:DropDownList ID="Disk_typeDropDown" runat="server" DataTextField='<%# Bind("disk_type_id") %>'>
-                        <asp:ListItem Value="1" Selected="True">CD</asp:ListItem>
-                        <asp:ListItem Value="2">DVD</asp:ListItem>
+                    <asp:DropDownList ID="Disk_typeDropDown" runat="server"  DataSourceID="SqlDataSource3" DataTextField="disk_type_desc" 
+                        DataValueField="disk_type_id" SelectedValue='<%# Bind("disk_type_id") %>'>
                     </asp:DropDownList>
                 </td>
                 <td>
 
-                    <asp:DropDownList ID="genre_descDropDown" runat="server" DataSourceID="SqlDataSource2" DataTextField="genre_desc" DataValueField="genre_id" SelectedValue='<%# Bind("genre_id") %>'>
+                    <asp:DropDownList ID="genre_descDropDown" runat="server" DataSourceID="SqlDataSource2" DataTextField="genre_desc" 
+                        DataValueField="genre_id" SelectedValue='<%# Bind("genre_id") %>'>
                     </asp:DropDownList>
 
                 </td>
@@ -225,15 +231,15 @@ Date				 Author				Comments
             </tr>
         </SelectedItemTemplate>
     </asp:ListView>
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:disk_inventoryZAConnectionString %>" 
-        DeleteCommand="execute sp_DelDisk @disk_id" 
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:disk_inventoryZAConnectionString %>"
+        DeleteCommand="execute sp_DelDisk @disk_id"
         InsertCommand="execute sp_InsDisk @disk_name, @release_date, @status_id, @disk_type_id, @genre_id"
-        SelectCommand="SELECT * FROM [diskPage] ORDER BY [disk_name]" 
-        UpdateCommand="execute sp_UpdDisk @disk_id, @disk_name, @release_date, @status_id, @disk_type_id, @genre_id">
-       
-    </asp:SqlDataSource>
-    <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:disk_inventoryZAConnectionString %>" 
-        SelectCommand="SELECT [genre_id], [genre_desc] FROM [genre] ORDER BY [genre_desc]">
-
-    </asp:SqlDataSource>
+        SelectCommand="SELECT * FROM [diskPage] ORDER BY [disk_name]"
+        UpdateCommand="execute sp_UpdDisk @disk_id, @disk_name, @release_date, @status_id, @disk_type_id, @genre_id"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:disk_inventoryZAConnectionString %>"
+        SelectCommand="SELECT [genre_id], [genre_desc] FROM [genre] ORDER BY [genre_desc]"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:disk_inventoryZAConnectionString %>"
+        SelectCommand="SELECT [disk_type_id], [disk_type_desc] FROM [disk_type] ORDER BY [disk_type_desc]"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConnectionString="<%$ ConnectionStrings:disk_inventoryZAConnectionString %>"
+        SelectCommand="SELECT [status_id], [status_desc] FROM [status]"></asp:SqlDataSource>
 </asp:Content>

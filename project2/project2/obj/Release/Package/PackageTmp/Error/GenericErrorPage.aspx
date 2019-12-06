@@ -26,20 +26,14 @@ Date				 Author				Comments
                                             404 error pages.
 **************************************************************************--%>
 
-
-<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="project2._Default" %>
+<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="GenericErrorPage.aspx.cs" Inherits="project2.Error.GenericErrorPage" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-
-    <div class="jumbotron">
-        <h1>Disk Rental Application</h1>
-        <p>
-           Z to A Creation Hub is creating a disk rental application to sell to your company. This application will be an employee side program.
-            At the moment you can create, modify, and delete borrower accounts, artist, and cd/dvd disc inventory. More features can be customized
-            if needed.
-        </p>
-    </div>
-
-
-
+     <h1>Oops Something Went Wrong</h1>
+    <asp:BulletedList ID="BulletedList1" runat="server">
+        <asp:ListItem>Please try again later.</asp:ListItem>
+        <asp:ListItem>This feature may currently be going through a sytem update.</asp:ListItem>
+        <asp:ListItem>If the problem persists please contact support.</asp:ListItem>
+    </asp:BulletedList>
 </asp:Content>
+

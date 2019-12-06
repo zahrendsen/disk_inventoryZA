@@ -16,6 +16,14 @@ Date				 Author				Comments
                                             to visit any of the pages other than
                                             home the user must be logged in or
                                             they will be redirected to log in
+12/2/19             Zach Ahrendsen      Corrected insert and update on Disk Page
+                                            features work correctly.
+12/4/19             Zach Ahrendsen      Created inventory/store page to allow
+                                            transactions for borrowers to 
+                                            rent disks. 
+12/5/19             Zach Ahrendsen      Created validation for store page.
+                                            Also created custom error and custom
+                                            404 error pages.
 **************************************************************************--%>
 
 
